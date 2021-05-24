@@ -6,7 +6,8 @@
   "mixins": [
     "VillagerTradeMixin",
     "MutualExclusiveMixin",
-    "ItemCooldownMixin"
+    "ItemCooldownMixin",
+    "AttackCooldownMixin"
   ],
   "client": [
   ],
