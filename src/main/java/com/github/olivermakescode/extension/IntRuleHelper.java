@@ -6,16 +6,21 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
 public class IntRuleHelper implements GameRuleInterface {
-    public static int value;
-    GameRules.Key<GameRules.IntRule> rule;
+    private int value;
+    private GameRules.Key<GameRules.IntRule> rule;
 
     public IntRuleHelper(String name, int defaultValue) {
-        value = defaultValue;
-        rule = GameRuleRegistry.register(name, GameRules.Category.MISC, GameRuleFactory.createIntRule(defaultValue));
+        this.value = defaultValue;
+        this.rule = GameRuleRegistry.register(name, GameRules.Category.MISC, GameRuleFactory.createIntRule(defaultValue));
     }
 
     @Override
-    public void updateValue(World world) {
-        value = world.getGameRules().getInt(rule);
+    public void updateValue() {
+        this.value = GameruleHelper.server.getGameRules().getInt(rule);
+    }
+
+    public int getValue() {
+        this.updateValue();
+        return this.value;
     }
 }

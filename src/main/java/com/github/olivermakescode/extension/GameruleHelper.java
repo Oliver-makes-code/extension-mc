@@ -1,21 +1,23 @@
 package com.github.olivermakescode.extension;
 
-import java.util.Arrays;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.minecraft.server.MinecraftServer;
+import org.jetbrains.annotations.Nullable;
 
 public class GameruleHelper {
-    public static GameRuleInterface[] rules = {};
+    @Nullable
+    public static MinecraftServer server;
+
+    public static void start() {
+        ServerLifecycleEvents.SERVER_STARTING.register(minecraftServer -> server = minecraftServer);
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> server = null);
+    }
 
     public static GameRuleInterface register(String name, boolean defaultValue) {
-        GameRuleInterface rule = new BoolRuleHelper(name, defaultValue);
-        rules = Arrays.copyOf(rules, rules.length+1);
-        rules[rules.length-1] = rule;
-        return rule;
+        return new BoolRuleHelper(name, defaultValue);
     }
 
     public static GameRuleInterface register(String name, int defaultValue) {
-        GameRuleInterface rule = new IntRuleHelper(name, defaultValue);
-        rules = Arrays.copyOf(rules, rules.length+1);
-        rules[rules.length-1] = rule;
-        return rule;
+        return new IntRuleHelper(name, defaultValue);
     }
 }

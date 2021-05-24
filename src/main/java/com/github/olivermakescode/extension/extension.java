@@ -1,19 +1,26 @@
 package com.github.olivermakescode.extension;
 
-import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
-import net.minecraft.server.command.CommandManager;
 
-import static net.minecraft.server.command.CommandManager.*;
+import java.lang.ref.WeakReference;
 
 public class extension implements ModInitializer {
 	public static BoolRuleHelper villagerTradeLock;
 	public static BoolRuleHelper disableMutual;
+	public static BoolRuleHelper itemCooldown;
+	public static BoolRuleHelper ePearlEnable;
+	public static BoolRuleHelper chorusEnable;
+	public static BoolRuleHelper shieldEnable;
 	@Override
 	public void onInitialize() {
+		GameruleHelper.start();
 		villagerTradeLock = (BoolRuleHelper) GameruleHelper.register("villagerTradeLock",true);
 		disableMutual = (BoolRuleHelper) GameruleHelper.register("disableMutualExclusiveEnchantments",false);
+		itemCooldown = (BoolRuleHelper) GameruleHelper.register("itemCooldown",true);
+		ePearlEnable = (BoolRuleHelper) GameruleHelper.register("enderPearlCooldown",true);
+		chorusEnable = (BoolRuleHelper) GameruleHelper.register("chorusFruitCooldown", true);
+		shieldEnable = (BoolRuleHelper) GameruleHelper.register("shieldCooldown", true);
+
 		swapRow.register();
 
 	}

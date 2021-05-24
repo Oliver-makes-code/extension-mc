@@ -15,11 +15,12 @@ public class BoolRuleHelper implements GameRuleInterface {
     }
 
     @Override
-    public void updateValue(World world) {
-        this.value = world.getGameRules().getBoolean(this.rule);
+    public void updateValue() {
+        this.value = GameruleHelper.server.getGameRules().getBoolean(this.rule);
     }
 
     public boolean getValue() {
+        this.updateValue();
         return this.value;
     }
 }
