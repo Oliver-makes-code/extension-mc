@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class AttackCooldownMixin {
     @Inject(method= "getAttackCooldownProgress",at=@At("RETURN"),cancellable = true)
     private void attackCooldownGamerule(float baseTime, CallbackInfoReturnable<Float> cir) {
-        if (!extension.attackCool.getValue())
+        if (!extension.attackCool.getValue() || !extension.itemCooldown.getValue())
             cir.setReturnValue(1F);
 
     }
