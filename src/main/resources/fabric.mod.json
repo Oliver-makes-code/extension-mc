@@ -6,8 +6,7 @@
   "name": "Extension",
   "description": "A Quark-inspired Minecraft mod targeting Fabric and Quilt",
   "authors": [
-    "Oliver-makes-code",
-    
+    "Oliver-makes-code"
   ],
   "contact": {
     "homepage": "https://github.com/Oliver-makes-code",
@@ -15,12 +14,15 @@
   },
 
   "license": "MIT",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/extension/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.github.oliver-makes-code.extension"
+      "com.github.olivermakescode.extension.extension"
+    ],
+    "client": [
+      "com.github.olivermakescode.extension.keybinds"
     ]
   },
   "mixins": [
@@ -31,8 +33,9 @@
     "fabricloader": ">=0.11.3",
     "fabric": "*",
     "minecraft": "1.17.x",
-    "java": ">=16"
+    "java": ">=8"
   },
   "suggests": {
+    "inventoryhud": "*"
   }
 }
