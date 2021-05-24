@@ -1,5 +1,6 @@
 package com.github.olivermakescode.extension.mixin;
 
+import com.github.olivermakescode.extension.GameruleHelper;
 import com.github.olivermakescode.extension.extension;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.world.World;
@@ -13,8 +14,10 @@ public class VillagerTradeMixin {
     private int restocksToday;
     @Inject(method = "tick", at = @At("HEAD"))
     public void checkRule(CallbackInfo info) {
-        //System.out.println(extension.villagerTradeLock.getValue());
         if (!extension.villagerTradeLock.getValue()) {
+            if (GameruleHelper.server == null)
+                return;
+
             this.restocksToday = 0;
             ((VillagerEntity)(Object)this).restock();
         }
