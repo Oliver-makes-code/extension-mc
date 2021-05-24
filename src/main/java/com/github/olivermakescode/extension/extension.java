@@ -11,6 +11,7 @@ public class extension implements ModInitializer {
 	public static BoolRuleHelper ePearlEnable;
 	public static BoolRuleHelper chorusEnable;
 	public static BoolRuleHelper shieldEnable;
+	public static BoolRuleHelper attackCool;
 	@Override
 	public void onInitialize() {
 		GameruleHelper.start();
@@ -20,6 +21,7 @@ public class extension implements ModInitializer {
 		ePearlEnable = (BoolRuleHelper) GameruleHelper.register("enderPearlCooldown",true);
 		chorusEnable = (BoolRuleHelper) GameruleHelper.register("chorusFruitCooldown", true);
 		shieldEnable = (BoolRuleHelper) GameruleHelper.register("shieldCooldown", true);
+		attackCool = (BoolRuleHelper) GameruleHelper.register("attackCooldown", true);
 
 		swapRow.register();
 
