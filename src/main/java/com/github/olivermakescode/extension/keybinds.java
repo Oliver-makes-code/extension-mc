@@ -12,6 +12,7 @@ import org.lwjgl.glfw.GLFW;
 public class keybinds implements ClientModInitializer {
     public static KeyBinding hotBarSwitchBind;
     public static int lastNumPressed = 0;
+    public static int slot = 0;
     @Override
     public void onInitializeClient() {
         hotBarSwitchBind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -23,8 +24,10 @@ public class keybinds implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
 
-            if (hotBarSwitchBind.wasPressed())
+            if (hotBarSwitchBind.wasPressed()) {
                 lastNumPressed = 0;
+                slot = client.player.getInventory().selectedSlot;
+            }
             if (hotBarSwitchBind.isPressed()) {
                 assert client.player != null;
 
@@ -44,6 +47,7 @@ public class keybinds implements ClientModInitializer {
                 } else if (!k1 && !k2 && !k3) {
                     client.player.getInventory().selectedSlot = 0;
                     lastNumPressed = 0;
+                    client.player.getInventory().selectedSlot = slot;
                 }
             }
         });
