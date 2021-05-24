@@ -14,12 +14,10 @@ public class VillagerTradeMixin {
     private int restocksToday;
     @Inject(method = "tick", at = @At("HEAD"))
     public void checkRule(CallbackInfo info) {
-        if (!extension.villagerTradeLock.getValue()) {
-            if (GameruleHelper.server == null)
-                return;
-
-            this.restocksToday = 0;
-            ((VillagerEntity)(Object)this).restock();
-        }
+        if (GameruleHelper.server != null)
+            if (!extension.villagerTradeLock.getValue()) {
+                this.restocksToday = 0;
+                ((VillagerEntity)(Object)this).restock();
+            }
     }
 }
