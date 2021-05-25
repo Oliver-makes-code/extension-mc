@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public class AttackCooldownMixin {
-    @Inject(method= "resetLastAttackedTicks()V",at=@At("RETURN"),cancellable = true)
+    @Inject(method= "resetLastAttackedTicks()V",at=@At("HEAD"),cancellable = true)
     private void attackCooldownGamerule(CallbackInfo ci) {
         if (GameruleHelper.server != null)
             if (!extension.attackCool.getValue() || !extension.itemCooldown.getValue())

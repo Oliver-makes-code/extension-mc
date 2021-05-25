@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemCooldownManager.class)
 public class ItemCooldownMixin {
-    @Inject(method="set", at=@At("INVOKE"), cancellable = true)
+    @Inject(method="set", at=@At("HEAD"), cancellable = true)
     public void cooldownGamerule(Item item, int duration, CallbackInfo ci) {
         if (GameruleHelper.server != null) {
             if (!extension.itemCooldown.getValue())
