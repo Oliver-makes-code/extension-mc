@@ -2,9 +2,11 @@
 
 ## Adding a gamerule
 
-Declair the variable as either a BoolRuleHelper or an IntRuleHelper, then assign inside onInitialize.
+Declare the variable as either a BoolRuleHelper or an IntRuleHelper, then assign inside onInitialize.
 
 ```java
+package path.to;
+
 import com.github.olivermakescode.extension.*;
 import net.fabricmc.api.ModInitializer;
 
@@ -26,12 +28,13 @@ public class ExampleClass implements ModInitializer {
 To access a gamerule do BoolRuleHelper#getValue or IntRuleHelper#getValue
 
 ```java
-import path.to.ExampleClass;
+package path.to;
 
-public class AcessingClass {
+public class AccessingClass {
     public static void checkRule() {
         if (ExampleClass.boolRule.getValue()) {
             //do something
+            System.out.println(ExampleClass.intRule.getValue());
         }
     }
 }
