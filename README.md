@@ -1,2 +1,2 @@
 # Extension
-A Quark-inspired Minecraft mod targeting Fabric and Quilt
+A Vanilla client/server compatible mod in the vein of Essentials
