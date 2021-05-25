@@ -47,8 +47,8 @@ public class keybinds implements ClientModInitializer {
                 } else if (!k1 && !k2 && !k3) {
                     client.player.getInventory().selectedSlot = 0;
                     lastNumPressed = 0;
-                    client.player.getInventory().selectedSlot = slot;
                 }
+                client.player.getInventory().selectedSlot = slot;
             }
         });
     }
