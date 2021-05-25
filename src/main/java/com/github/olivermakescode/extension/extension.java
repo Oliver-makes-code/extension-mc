@@ -24,6 +24,6 @@ public class extension implements ModInitializer {
 		attackCool = (BoolRuleHelper) GameruleHelper.register("attackCooldown", true);
 
 		swapRow.register();
-
+		nicknames.registerCommand();
 	}
 }
