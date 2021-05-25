@@ -26,6 +26,8 @@ public class ExampleClass implements ModInitializer {
 To access a gamerule do BoolRuleHelper#getValue or IntRuleHelper#getValue
 
 ```java
+import path.to.ExampleClass;
+
 public class AcessingClass {
     public static void checkRule() {
         if (ExampleClass.boolRule.getValue()) {
