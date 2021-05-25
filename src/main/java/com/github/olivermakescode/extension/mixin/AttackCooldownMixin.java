@@ -6,15 +6,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public class AttackCooldownMixin {
-    @Inject(method= "getAttackCooldownProgress",at=@At("RETURN"),cancellable = true)
-    private void attackCooldownGamerule(float baseTime, CallbackInfoReturnable<Float> cir) {
+    @Inject(method= "resetLastAttackedTicks()V",at=@At("RETURN"),cancellable = true)
+    private void attackCooldownGamerule(CallbackInfo ci) {
         if (GameruleHelper.server != null)
             if (!extension.attackCool.getValue() || !extension.itemCooldown.getValue())
-                cir.setReturnValue(1F);
-
+                ci.cancel();
     }
 }

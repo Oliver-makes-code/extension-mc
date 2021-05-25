@@ -6,7 +6,8 @@
   "name": "Extension",
   "description": "A Quark-inspired Minecraft mod targeting Fabric and Quilt",
   "authors": [
-    "Oliver-makes-code"
+    "Oliver-makes-code",
+    "Fusion-Flux"
   ],
   "contact": {
     "homepage": "https://github.com/Oliver-makes-code",
