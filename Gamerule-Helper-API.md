@@ -6,6 +6,7 @@ Declair the variable as either a BoolRuleHelper or an IntRuleHelper, then assign
 
 ```java
 import com.github.olivermakescode.extension.*;
+import net.fabricmc.api.ModInitializer;
 
 public class ExampleClass implements ModInitializer {
     //initialize variables
