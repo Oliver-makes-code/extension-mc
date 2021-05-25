@@ -20,7 +20,8 @@ public class IntRuleHelper implements GameRuleInterface {
     }
 
     public int getValue() {
-        this.updateValue();
+        if (GameruleHelper.server != null)
+            this.updateValue();
         return this.value;
     }
 }

@@ -20,7 +20,8 @@ public class BoolRuleHelper implements GameRuleInterface {
     }
 
     public boolean getValue() {
-        this.updateValue();
+        if (GameruleHelper.server != null)
+            this.updateValue();
         return this.value;
     }
 }
