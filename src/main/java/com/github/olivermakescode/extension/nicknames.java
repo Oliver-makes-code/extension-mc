@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.entity.player.PlayerEntity;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import static net.minecraft.server.command.CommandManager.argument;
@@ -22,7 +23,7 @@ public class nicknames {
             return;
         }
         username = Arrays.copyOf(username,username.length+1);
-        username[username.length-1] = user.getGameProfile().getName();
+        username[username.length-1] = user.getUuidAsString();
 
         nickname = Arrays.copyOf(nickname,nickname.length+1);
         nickname[nickname.length-1] = nick;
@@ -30,15 +31,41 @@ public class nicknames {
 
     private static int nickExists(PlayerEntity user) {
         for (int i = 0; i < nickname.length; i++) {
-            if (username[i] == user.getGameProfile().getName())
+            if (username[i] == user.getUuidAsString())
                 return i;
         }
         return -1;
     }
 
+    public static void load() throws IOException {
+        String str = loadFile.load("nick.txt");
+        if (str != null && !str.equals("") && !str.equals(" ") && !str.equals("\n")) {
+            String[] file = str.split("\n");
+            System.out.println(Arrays.toString(file));
+            if (file.length > 0) {
+                for (int i = 0; i < file.length; i++) {
+                    String[] splitFile = file[i].split(":",2);
+                    username[i] = splitFile[0];
+                    nickname[i] = splitFile[1];
+                    System.out.println(Arrays.toString(splitFile));
+                }
+            }
+        }
+    }
+
+    public static void save() throws IOException {
+        String[] intermediary = new String[username.length];
+        StringBuilder toSave = new StringBuilder();
+        for (int i = 0; i < username.length; i++) {
+            intermediary[i] = username[i] + ":" + nickname[i];
+            toSave.append(intermediary[i]).append("\n");
+        }
+        loadFile.save("nick.txt",toSave.toString());
+    }
+
     public static String getName(PlayerEntity user) {
         for (int i = 0; i < nickname.length; i++) {
-            if (username[i].equals(user.getGameProfile().getName())) {
+            if (username[i].equals(user.getUuidAsString())) {
                 if (nickname[i] != null)
                     return nickname[i];
                 else return user.getGameProfile().getName();

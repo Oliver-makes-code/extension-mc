@@ -2,8 +2,6 @@ package com.github.olivermakescode.extension;
 
 import net.fabricmc.api.ModInitializer;
 
-import java.lang.ref.WeakReference;
-
 public class extension implements ModInitializer {
 	public static BoolRuleHelper villagerTradeLock;
 	public static BoolRuleHelper disableMutual;
