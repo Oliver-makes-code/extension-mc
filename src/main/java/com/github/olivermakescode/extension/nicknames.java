@@ -31,7 +31,7 @@ public class nicknames {
 
     private static int nickExists(PlayerEntity user) {
         for (int i = 0; i < nickname.length; i++) {
-            if (username[i] == user.getUuidAsString())
+            if (username[i].equals(user.getUuidAsString()))
                 return i;
         }
         return -1;

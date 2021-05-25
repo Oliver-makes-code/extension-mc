@@ -23,6 +23,7 @@ public class loadFile {
         }
         return Files.readString(newPath);
     }
+
     public static void save(String name, String text) throws IOException {
         MinecraftServer server = GameruleHelper.server;
         assert server != null;
@@ -30,9 +31,8 @@ public class loadFile {
         path = path.substring(0,path.length()-1)+"nick.txt";
         Path newPath = Path.of(path);
         File file = new File(path);
-        if (!Files.exists(newPath)) {
-            Files.createFile(newPath);
-        }
+        Files.deleteIfExists(newPath);
+        Files.createFile(newPath);
         BufferedWriter output = new BufferedWriter(new FileWriter(file));
         output.write(text);
         output.close();
