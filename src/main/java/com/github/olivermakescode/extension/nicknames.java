@@ -42,11 +42,15 @@ public class nicknames {
         if (str != null && !str.equals("") && !str.equals(" ") && !str.equals("\n")) {
             String[] file = str.split("\n");
             System.out.println(Arrays.toString(file));
+            username = new String[file.length];
+            nickname = new String[file.length];
             if (file.length > 0) {
                 for (int i = 0; i < file.length; i++) {
-                    String[] splitFile = file[i].split(":",2);
-                    username[i] = splitFile[0];
-                    nickname[i] = splitFile[1];
+                    String[] splitFile = file[i].split(":");
+                    if (splitFile.length > 1) {
+                        username[i] = splitFile[0];
+                        nickname[i] = splitFile[1];
+                    }
                     System.out.println(Arrays.toString(splitFile));
                 }
             }

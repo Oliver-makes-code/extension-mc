@@ -1,19 +1,23 @@
 package com.github.olivermakescode.extension.mixin;
 
 import com.github.olivermakescode.extension.nicknames;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.MessageType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(PlayerEntity.class)
+import java.util.UUID;
+
+@Mixin(ServerPlayerEntity.class)
 public class NickMessageMixin {
-
-    @Inject(method="getName()Lnet/minecraft/text/Text;", at=@At("INVOKE"),cancellable = true)
-    public void nickName(CallbackInfoReturnable<Text> cir) {
-        PlayerEntity self = (PlayerEntity) (Object) this;
-        cir.setReturnValue(Text.of(nicknames.getName(self)));
+    @ModifyVariable(method = "sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V", at = @At("HEAD"), ordinal=0)
+    public Text modifyMessageNick(Text old, Text old2, MessageType type, UUID sender) {
+        ServerPlayerEntity self = (ServerPlayerEntity) (Object) this;
+        System.out.println("called modify");
+        Text message = Text.of("<"+nicknames.getName(self)+">"+old.getString().substring(self.getName().getString().length()+2));
+        if (type == MessageType.CHAT) return message;
+        return old;
     }
 }
