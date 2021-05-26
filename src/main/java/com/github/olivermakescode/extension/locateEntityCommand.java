@@ -56,6 +56,7 @@ public class locateEntityCommand {
                     + pos[1] + ", "
                     + pos[2];
 
+
             context.getSource().sendFeedback(Text.of(feedback), false);
             return 1;
         }
