@@ -8,7 +8,10 @@
     "MutualExclusiveMixin",
     "ItemCooldownMixin",
     "AttackCooldownMixin",
-    "NickMessageMixin"
+    "NickMessageMixin",
+    "FallingBlockMixin",
+    "ScaffoldFallMixin",
+    "ScaffoldAccessor"
   ],
   "client": [
   ],
