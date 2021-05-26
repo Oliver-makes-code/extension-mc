@@ -23,5 +23,6 @@ public class extension implements ModInitializer {
 
 		swapRow.register();
 		nicknames.registerCommand();
+		locateEntityCommand.register();
 	}
 }
