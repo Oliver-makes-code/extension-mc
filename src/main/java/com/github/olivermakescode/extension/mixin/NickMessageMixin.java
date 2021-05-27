@@ -14,10 +14,8 @@ import java.util.UUID;
 public class NickMessageMixin {
     @ModifyVariable(method = "sendMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V", at = @At("HEAD"), ordinal=0)
     public Text modifyMessageNick(Text old, Text old2, MessageType type, UUID sender) {
+        if (type != MessageType.CHAT) return old;
         ServerPlayerEntity self = (ServerPlayerEntity) (Object) this;
-        System.out.println("called modify");
-        Text message = Text.of("<"+nicknames.getName(self)+">"+old.getString().substring(self.getName().getString().length()+2));
-        if (type == MessageType.CHAT) return message;
-        return old;
+        return Text.of("<"+nicknames.getName(self)+">"+old.getString().substring(self.getName().getString().length()+2));
     }
 }
