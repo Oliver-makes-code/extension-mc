@@ -11,6 +11,8 @@ public class extension implements ModInitializer {
 	public static BoolRuleHelper shieldEnable;
 	public static BoolRuleHelper attackCool;
 	public static BoolRuleHelper fallingBlocks;
+	public static BoolRuleHelper entitiesTrampleCrops;
+	public static IntRuleHelper cropWaterRadius;
 	@Override
 	public void onInitialize() {
 		GameruleHelper.start();
@@ -23,6 +25,8 @@ public class extension implements ModInitializer {
 		shieldEnable = (BoolRuleHelper) GameruleHelper.register("shieldCooldown", true);
 		attackCool = (BoolRuleHelper) GameruleHelper.register("attackCooldown", true);
 		fallingBlocks = (BoolRuleHelper) GameruleHelper.register("fallingBlocks", true);
+		entitiesTrampleCrops = (BoolRuleHelper) GameruleHelper.register("entitiesTrampleCrops", true);
+		cropWaterRadius = (IntRuleHelper) GameruleHelper.register("farmlandWateringRadius", 4);
 
 		swapRow.register();
 		nicknames.registerCommand();
