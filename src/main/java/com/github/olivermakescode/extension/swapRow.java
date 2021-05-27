@@ -4,11 +4,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 
-import static com.mojang.brigadier.arguments.StringArgumentType.word;
-import static java.lang.Integer.parseInt;
-import static net.minecraft.command.argument.MessageArgumentType.getMessage;
 import static net.minecraft.server.command.CommandManager.*;
 
 public class swapRow {

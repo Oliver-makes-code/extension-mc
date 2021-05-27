@@ -1,6 +1,5 @@
 package com.github.olivermakescode.extension.mixin;
 
-import com.github.olivermakescode.extension.GameruleHelper;
 import com.github.olivermakescode.extension.extension;
 import net.minecraft.enchantment.Enchantment;
 import org.spongepowered.asm.mixin.Mixin;

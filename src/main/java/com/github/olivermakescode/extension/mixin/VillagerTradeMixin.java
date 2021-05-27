@@ -3,7 +3,6 @@ package com.github.olivermakescode.extension.mixin;
 import com.github.olivermakescode.extension.GameruleHelper;
 import com.github.olivermakescode.extension.extension;
 import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;

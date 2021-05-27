@@ -3,7 +3,6 @@ package com.github.olivermakescode.extension;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
 
 public class BoolRuleHelper implements GameRuleInterface {
     private boolean value;
