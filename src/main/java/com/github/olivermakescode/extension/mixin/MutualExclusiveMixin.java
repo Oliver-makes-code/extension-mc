@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MutualExclusiveMixin {
     @Inject(method = "canCombine", at = @At("RETURN"), cancellable = true)
     public void mutual(CallbackInfoReturnable<Boolean> info) {
-        if (GameruleHelper.server != null)
-            if (extension.disableMutual.getValue())
-                info.setReturnValue(true);
+        if (extension.disableMutual.getValue())
+            info.setReturnValue(true);
     }
 }
