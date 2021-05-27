@@ -14,6 +14,7 @@ public class extension implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		GameruleHelper.start();
+
 		villagerTradeLock = (BoolRuleHelper) GameruleHelper.register("villagerTradeLock",true);
 		disableMutual = (BoolRuleHelper) GameruleHelper.register("disableMutualExclusiveEnchantments",false);
 		itemCooldown = (BoolRuleHelper) GameruleHelper.register("itemCooldown",true);
