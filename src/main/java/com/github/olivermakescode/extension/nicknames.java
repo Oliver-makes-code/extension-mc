@@ -57,12 +57,12 @@ public class nicknames {
 
     public static void save() throws IOException {
         String[] intermediary = new String[username.length];
-        StringBuilder toSave = new StringBuilder();
+        String toSave = "";
         for (int i = 0; i < username.length; i++) {
             intermediary[i] = username[i] + ":" + nickname[i];
-            toSave.append(intermediary[i]).append("\n");
+            toSave += intermediary[i] + "\n";
         }
-        loadFile.save("nick.txt",toSave.toString());
+        loadFile.save("nick.txt",toSave);
     }
 
     public static String getName(PlayerEntity user) {
@@ -78,14 +78,12 @@ public class nicknames {
 
     public static void registerCommand() {
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-            dispatcher.register(literal("nick").then(argument("nickname", StringArgumentType.string()).executes(context -> {
+            var ctx = argument("nickname", StringArgumentType.string()).executes(context -> {
                 addName(context.getSource().getPlayer(),StringArgumentType.getString(context,"nickname"));
                 return 1;
-            })));
-            dispatcher.register(literal("nickname").then(argument("nickname", StringArgumentType.string()).executes(context -> {
-                addName(context.getSource().getPlayer(),StringArgumentType.getString(context,"nickname"));
-                return 1;
-            })));
+            });
+            dispatcher.register(literal("nick").then(ctx));
+            dispatcher.register(literal("nickname").then(ctx));
         });
     }
 }

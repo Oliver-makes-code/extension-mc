@@ -9,30 +9,24 @@ import static net.minecraft.server.command.CommandManager.*;
 
 public class swapRow {
     public static void swap(int row, PlayerEntity player) {
-        int startIdx = row*9;
-
-        for (int i = startIdx; i<startIdx+9; i++) {
-            int currSlot = i-startIdx;
+        for (int i = row*9; i<row*9+9; i++) {
+            int currSlot = i-row*9;
             ItemStack currItem = player.getInventory().getStack(i);
             ItemStack currHotbar = player.getInventory().getStack(currSlot);
             player.getInventory().setStack(currSlot,currItem);
             player.getInventory().setStack(i,currHotbar);
         }
-        player.getInventory().selectedSlot = 0;
     }
 
     public static void register() {
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-            dispatcher.register(literal("hb").then(argument("slot", IntegerArgumentType.integer(1,3)).executes(context -> {
-                swap(IntegerArgumentType.getInteger(context,"slot"), context.getSource().getPlayer());
+            var ctx = argument("slot", IntegerArgumentType.integer(1, 3)).executes(context -> {
+                swap(IntegerArgumentType.getInteger(context, "slot"), context.getSource().getPlayer());
                 return 1;
-            })));
-        });
-        CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
-            dispatcher.register(literal("hotbar").then(argument("slot", IntegerArgumentType.integer(1,3)).executes(context -> {
-                swap(IntegerArgumentType.getInteger(context,"slot"), context.getSource().getPlayer());
-                return 1;
-            })));
+            });
+
+            dispatcher.register(literal("hotbar").then(ctx));
+            dispatcher.register(literal("hb").then(ctx));
         });
     }
 }
