@@ -20,13 +20,15 @@ import java.util.Iterator;
 public class FarmMixin {
     @Inject(at=@At("HEAD"),method= "onLandedUpon(Lnet/minecraft/world/World;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;F)V", cancellable = true)
     public void trample(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance, CallbackInfo ci) {
-        if (!extension.entitiesTrampleCrops.getValue()) ci.cancel();
+        if (extension.entitiesTrampleCrops.getValue()) return;
+
+        ci.cancel();
     }
 
     @Inject(at=@At("HEAD"),method= "isWaterNearby(Lnet/minecraft/world/WorldView;Lnet/minecraft/util/math/BlockPos;)Z", cancellable = true)
     private static void distance(WorldView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         int dist = extension.cropWaterRadius.getValue();
-        Iterator newPos = BlockPos.iterate(pos.add(-dist, 0, -dist), pos.add(dist, 1, dist)).iterator();
+        Iterator<BlockPos> newPos = BlockPos.iterate(pos.add(-dist, 0, -dist), pos.add(dist, 1, dist)).iterator();
 
         BlockPos blockPos;
         do {
@@ -34,10 +36,9 @@ public class FarmMixin {
                 cir.setReturnValue(false);
                 return;
             }
-            blockPos = (BlockPos) newPos.next();
+            blockPos = newPos.next();
         } while(!world.getFluidState(blockPos).isIn(FluidTags.WATER));
 
         cir.setReturnValue(true);
-        return;
     }
 }

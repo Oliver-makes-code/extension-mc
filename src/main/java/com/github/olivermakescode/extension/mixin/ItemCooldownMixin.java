@@ -1,6 +1,5 @@
 package com.github.olivermakescode.extension.mixin;
 
-import com.github.olivermakescode.extension.GameruleHelper;
 import com.github.olivermakescode.extension.extension;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.item.ChorusFruitItem;
@@ -16,13 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ItemCooldownMixin {
     @Inject(method="set", at=@At("HEAD"), cancellable = true)
     public void cooldownGamerule(Item item, int duration, CallbackInfo ci) {
-        if (!extension.itemCooldown.getValue())
-            ci.cancel();
-        if (!(extension.ePearlEnable.getValue()) && item instanceof EnderPearlItem)
-            ci.cancel();
-        if (!(extension.chorusEnable.getValue()) && item instanceof ChorusFruitItem)
-            ci.cancel();
-        if (!(extension.shieldEnable.getValue()) && item instanceof ShieldItem)
+        boolean itemCool = !extension.itemCooldown.getValue();
+        boolean ePearl = !extension.ePearlEnable.getValue() && item instanceof EnderPearlItem;
+        boolean chorus = !extension.chorusEnable.getValue() && item instanceof ChorusFruitItem;
+        boolean shield = !extension.shieldEnable.getValue() && item instanceof ShieldItem;
+
+        if (itemCool || ePearl || chorus || shield)
             ci.cancel();
     }
 }

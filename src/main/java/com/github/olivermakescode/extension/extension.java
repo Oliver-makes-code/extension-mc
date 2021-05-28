@@ -13,6 +13,7 @@ public class extension implements ModInitializer {
 	public static BoolRuleHelper fallingBlocks;
 	public static BoolRuleHelper entitiesTrampleCrops;
 	public static IntRuleHelper cropWaterRadius;
+
 	@Override
 	public void onInitialize() {
 		GameruleHelper.start();
