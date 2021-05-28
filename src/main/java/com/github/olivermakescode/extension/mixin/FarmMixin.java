@@ -11,6 +11,7 @@ import net.minecraft.world.WorldView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -20,25 +21,21 @@ import java.util.Iterator;
 public class FarmMixin {
     @Inject(at=@At("HEAD"),method= "onLandedUpon(Lnet/minecraft/world/World;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/Entity;F)V", cancellable = true)
     public void trample(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance, CallbackInfo ci) {
-        if (extension.entitiesTrampleCrops.getValue()) return;
-
-        ci.cancel();
+        if (!extension.entitiesTrampleCrops.getValue())
+            ci.cancel();
     }
 
-    @Inject(at=@At("HEAD"),method= "isWaterNearby(Lnet/minecraft/world/WorldView;Lnet/minecraft/util/math/BlockPos;)Z", cancellable = true)
-    private static void distance(WorldView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+    @Redirect(
+            at=@At(
+                value="INVOKE",
+                target="Lnet/minecraft/util/math/BlockPos;iterate(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockPos;)Ljava/lang/Iterable;"
+            ),
+            method="isWaterNearby(Lnet/minecraft/world/WorldView;Lnet/minecraft/util/math/BlockPos;)Z"
+    )
+    private static Iterable<BlockPos> iterate(BlockPos start, BlockPos end) {
         int dist = extension.cropWaterRadius.getValue();
-        Iterator<BlockPos> newPos = BlockPos.iterate(pos.add(-dist, 0, -dist), pos.add(dist, 1, dist)).iterator();
-
-        BlockPos blockPos;
-        do {
-            if (!newPos.hasNext()) {
-                cir.setReturnValue(false);
-                return;
-            }
-            blockPos = newPos.next();
-        } while(!world.getFluidState(blockPos).isIn(FluidTags.WATER));
-
-        cir.setReturnValue(true);
+        start.add(4-dist,0,4-dist);
+        end.add(-4+dist,0,-4+dist);
+        return BlockPos.iterate(Math.min(start.getX(), end.getX()), Math.min(start.getY(), end.getY()), Math.min(start.getZ(), end.getZ()), Math.max(start.getX(), end.getX()), Math.max(start.getY(), end.getY()), Math.max(start.getZ(), end.getZ()));
     }
 }
