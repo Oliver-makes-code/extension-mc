@@ -10,8 +10,6 @@
     "ItemCooldownMixin",
     "MutualExclusiveMixin",
     "NickMessageMixin",
-    "ScaffoldAccessor",
-    "ScaffoldFallMixin",
     "VillagerTradeMixin"
   ],
   "client": [
