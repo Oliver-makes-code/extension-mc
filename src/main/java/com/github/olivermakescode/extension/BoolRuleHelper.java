@@ -14,7 +14,8 @@ public class BoolRuleHelper implements GameRuleInterface {
     }
 
     @Override
-    public void updateValue() {
+    public void updateValue() throws NullPointerException {
+        assert GameruleHelper.server != null;
         this.value = GameruleHelper.server.getGameRules().getBoolean(this.rule);
     }
 
