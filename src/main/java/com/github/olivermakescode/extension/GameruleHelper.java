@@ -36,4 +36,12 @@ public class GameruleHelper {
     public static GameRuleInterface register(String name, int defaultValue) {
         return new IntRuleHelper(name, defaultValue);
     }
+
+    public static GameRuleInterface register(String name, int defaultValue, int min) {
+        return new IntRuleHelper(name, defaultValue, min);
+    }
+
+    public static GameRuleInterface register(String name, int defaultValue, int min, int max) {
+        return new IntRuleHelper(name, defaultValue, min, max);
+    }
 }

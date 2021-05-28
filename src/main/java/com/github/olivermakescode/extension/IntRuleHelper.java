@@ -13,6 +13,18 @@ public class IntRuleHelper implements GameRuleInterface {
         this.rule = GameRuleRegistry.register(name, GameRules.Category.MISC, GameRuleFactory.createIntRule(defaultValue));
     }
 
+    public IntRuleHelper(String name, int defaultValue, int min) {
+
+        this.value = defaultValue;
+        this.rule = GameRuleRegistry.register(name, GameRules.Category.MISC, GameRuleFactory.createIntRule(defaultValue, min));
+    }
+
+    public IntRuleHelper(String name, int defaultValue, int min, int max) {
+
+        this.value = defaultValue;
+        this.rule = GameRuleRegistry.register(name, GameRules.Category.MISC, GameRuleFactory.createIntRule(defaultValue, min, max));
+    }
+
     @Override
     public void updateValue() {
         this.value = GameruleHelper.server.getGameRules().getInt(rule);

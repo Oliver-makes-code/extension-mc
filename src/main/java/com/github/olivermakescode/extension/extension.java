@@ -27,7 +27,7 @@ public class extension implements ModInitializer {
 		attackCool = (BoolRuleHelper) GameruleHelper.register("attackCooldown", true);
 		fallingBlocks = (BoolRuleHelper) GameruleHelper.register("fallingBlocks", true);
 		entitiesTrampleCrops = (BoolRuleHelper) GameruleHelper.register("entitiesTrampleCrops", true);
-		cropWaterRadius = (IntRuleHelper) GameruleHelper.register("farmlandWateringRadius", 4);
+		cropWaterRadius = (IntRuleHelper) GameruleHelper.register("farmlandWateringRadius", 4, 1, 32);
 
 		swapRow.register();
 		nicknames.registerCommand();
